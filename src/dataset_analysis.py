@@ -52,12 +52,11 @@ REPORTS_DIR   = PROJECT_ROOT / "reports"
 # Supported image extensions
 SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}
 
-# The five disease classes and their folder names
+# The four disease classes and their folder names
 CLASS_FOLDERS = {
     "Acne":                    "Acne",
     "Rosacea":                 "Rosacea",
     "Melasma":                 "Melasma",
-    "Facial Vitiligo":         "Facial vitiligo",
     "Seborrheic Dermatitis":   "Seborrheic_Dermatitis",
 }
 

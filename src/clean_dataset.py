@@ -34,7 +34,6 @@ CLASS_FOLDERS = {
     "Acne":                  DATASET_DIR / "Acne",
     "Rosacea":               DATASET_DIR / "Rosacea",
     "Melasma":               DATASET_DIR / "Melasma",
-    "Facial Vitiligo":       DATASET_DIR / "Facial vitiligo",
     "Seborrheic Dermatitis": DATASET_DIR / "Seborrheic_Dermatitis",
 }
 

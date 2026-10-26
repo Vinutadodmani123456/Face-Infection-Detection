@@ -3,48 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Skin Infection Detection — MCA Academic Project</title>
-  <meta name="description" content="Machine Learning-based Skin Infection Detection System. Academic project for identifying Acne, Rosacea, Melasma, Facial Vitiligo, and Seborrheic Dermatitis." />
+  <title>Skin Infection Detection — Facial Skin Condition Detection</title>
+  <meta name="description" content="AI-powered facial skin condition detection. Detects Acne, Rosacea, Melasma, and Seborrheic Dermatitis." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?v=5.0" />
 </head>
 <body>
 
-  <!-- ── Background orbs ────────────────────────────────────────────────── -->
+  <!-- Background Effects -->
+  <div class="bg-gradient-layer" aria-hidden="true"></div>
   <div class="bg-orb orb-1" aria-hidden="true"></div>
   <div class="bg-orb orb-2" aria-hidden="true"></div>
   <div class="bg-orb orb-3" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
 
-  <!-- ── Navbar ──────────────────────────────────────────────────────────── -->
+  <!-- Navbar -->
   <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-inner">
       <div class="nav-brand">
-        <span class="brand-icon" aria-hidden="true">🩺</span>
+        <div class="brand-logo">
+          <svg class="stetho-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="url(#stethoGrad)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 3v5a5.5 5.5 0 0 0 11 0V3"></path>
+            <path d="M6 3h-3"></path>
+            <path d="M17 3h-3"></path>
+            <path d="M10 13.5v3.5a4 4 0 0 0 4 4h1a4 4 0 0 0 4-4v-1.5"></path>
+            <circle cx="19" cy="14" r="2.2" fill="url(#stethoGrad)" stroke="none"></circle>
+            <defs>
+              <linearGradient id="stethoGrad" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#8B5CF6"/>
+                <stop offset="100%" stop-color="#3B82F6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
         <span class="brand-name">Skin Infection <span class="brand-accent">Detection</span></span>
       </div>
-      <div class="nav-badge">Chetan Business School · MCA 3rd Sem</div>
     </div>
   </nav>
 
-  <!-- ── Main Content ────────────────────────────────────────────────────── -->
+  <!-- Main Content -->
   <main class="main-container" role="main">
 
     <!-- Hero Section -->
     <section class="hero" aria-labelledby="hero-heading">
       <h1 id="hero-heading" class="hero-title">
-        Facial Skin Condition
-        <span class="gradient-text">Detection</span>
+        Facial Skin Condition <span class="gradient-text">Detection</span>
       </h1>
-      <p class="hero-subtitle">
-        Traditional Machine Learning · 7 Algorithms · 58 Handcrafted Features
-      </p>
+
       <div class="condition-pills" aria-label="Supported conditions">
-        <span class="pill pill-normal" style="background: rgba(46, 204, 113, 0.15); color: #2ECC71; border: 1px solid rgba(46, 204, 113, 0.3);">Normal Condition</span>
         <span class="pill pill-acne">Acne</span>
         <span class="pill pill-rosacea">Rosacea</span>
         <span class="pill pill-melasma">Melasma</span>
-        <span class="pill pill-vitiligo">Facial Vitiligo</span>
         <span class="pill pill-seb">Seborrheic Dermatitis</span>
       </div>
     </section>
@@ -58,27 +68,55 @@
         <div
           class="drop-zone"
           id="drop-zone"
-          role="button"
-          tabindex="0"
+          role="region"
           aria-label="Drag and drop image or click to select"
-          aria-describedby="drop-hint"
         >
-          <div class="drop-icon" aria-hidden="true">📁</div>
-          <p class="drop-title">Drag &amp; drop your image here</p>
-          <p class="drop-hint" id="drop-hint">or click to browse</p>
           <input
             type="file"
             id="file-input"
-            accept="image/jpeg,image/png,image/bmp"
+            accept="image/*,.jpg,.jpeg,.png,.bmp,.webp,.jfif"
             class="file-input"
             aria-label="Select image file"
           />
+          <div class="drop-icon-wrap">
+            <svg class="folder-icon-svg" width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="folderBackGrad" x1="6" y1="12" x2="54" y2="48" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#F59E0B"/>
+                  <stop offset="100%" stop-color="#D97706"/>
+                </linearGradient>
+                <linearGradient id="folderFrontGrad" x1="6" y1="22" x2="54" y2="50" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#FBBF24"/>
+                  <stop offset="100%" stop-color="#F59E0B"/>
+                </linearGradient>
+                <filter id="folderShadow" x="0" y="8" width="60" height="46" filterUnits="userSpaceOnUse">
+                  <feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#F59E0B" flood-opacity="0.25"/>
+                </filter>
+              </defs>
+              <g filter="url(#folderShadow)">
+                <!-- Back folder tab & body -->
+                <path d="M7 15C7 12.7909 8.79086 11 11 11H22.5C24.0913 11 25.6174 11.6321 26.7426 12.7574L29.2574 15.2426C30.3826 16.3679 31.9087 17 33.5 17H49C51.2091 17 53 18.7909 53 21V43C53 45.2091 51.2091 47 49 47H11C8.79086 47 7 45.2091 7 43V15Z" fill="url(#folderBackGrad)"/>
+                <!-- Front folder plate -->
+                <path d="M7 25C7 22.7909 8.79086 21 11 21H49C51.2091 21 53 22.7909 53 25V43C53 45.2091 51.2091 47 49 47H11C8.79086 47 7 45.2091 7 43V25Z" fill="url(#folderFrontGrad)"/>
+              </g>
+            </svg>
+          </div>
+          <p class="drop-title">Drag &amp; drop your image here</p>
+          <p class="drop-hint" id="drop-hint">or click to browse</p>
         </div>
 
         <!-- Image Preview -->
         <div class="preview-wrapper" id="preview-wrapper" aria-live="polite">
-          <img id="preview-img" src="" alt="Selected image preview" class="preview-img" />
-          <button class="btn-clear" id="btn-clear" aria-label="Clear selected image">✕ Clear</button>
+          <div class="preview-img-container">
+            <img id="preview-img" src="" alt="Selected image preview" class="preview-img" />
+          </div>
+          <div class="preview-info">
+            <span class="preview-filename" id="preview-filename"></span>
+            <button class="btn-clear" id="btn-clear" aria-label="Clear selected image">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Remove
+            </button>
+          </div>
         </div>
 
         <!-- Analyse Button -->
@@ -88,19 +126,48 @@
           disabled
           aria-label="Analyse uploaded image"
         >
-          <span class="btn-text">Analyse Image</span>
-          <span class="btn-spinner" aria-hidden="true"></span>
+          <span class="btn-text">
+            <svg class="btn-icon" width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="2"/><path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Analyse Image
+          </span>
+          <span class="btn-spinner" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2" opacity="0.25"/><path d="M10 2A8 8 0 0 1 18 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
         </button>
+
+
+
+        <!-- Face Issue Card: Multiple Faces (Image 1) & No Face (Image 4) -->
+        <div class="face-alert-card" id="face-alert-card" hidden>
+          <div class="face-alert-icon-wrap">
+            <div class="red-circle-exclamation">
+              <span>!</span>
+            </div>
+          </div>
+          <h2 class="face-alert-title" id="face-alert-title">Invalid Image</h2>
+          <div class="face-alert-body">
+            <p id="face-alert-line1">This image is invalid for facial skin infection analysis.</p>
+            <p id="face-alert-line2">Please upload a clear image of a single face showing a facial skin condition.</p>
+          </div>
+          <div class="face-alert-actions">
+            <button type="button" class="btn-back-home" id="btn-face-back-home">Back to Home</button>
+          </div>
+        </div>
+
 
         <!-- Error Banner -->
         <div class="error-banner" id="error-banner" role="alert" aria-live="assertive" hidden>
-          <span class="error-icon" aria-hidden="true">⚠</span>
+          <div class="error-icon-wrap">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/><path d="M10 6V11M10 13.5V14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
           <span id="error-text"></span>
         </div>
       </div>
     </section>
 
-    <!-- Result Card -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <!-- RESULT SECTION — Multi-Label Enhanced                              -->
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
     <section
       class="result-section"
       id="result-section"
@@ -108,80 +175,96 @@
       aria-live="polite"
       hidden
     >
-      <div class="card result-card" id="result-card">
-        <!-- Result Header -->
-        <div class="result-header" id="result-header">
-          <div class="result-condition-icon" id="result-icon" aria-hidden="true">🩺</div>
-          <div class="result-header-text">
-            <h2 id="result-heading" class="result-condition-name">—</h2>
-            <div class="result-confidence-row">
-              <span class="result-confidence-label">Confidence</span>
-              <span class="result-confidence-value" id="result-confidence">—</span>
+      <!-- Multi-Condition Alert Banner (shown only when >1 condition detected) -->
+      <div class="multi-alert" id="multi-alert" hidden>
+        <div class="multi-alert-icon">⚡</div>
+        <div class="multi-alert-text">
+          <strong>Multiple Conditions Detected</strong>
+          <span id="multi-alert-detail">This face shows signs of multiple skin conditions simultaneously.</span>
+        </div>
+      </div>
+
+      <!-- Clear Skin Alert Banner (shown when skin is healthy / no disease detected) -->
+      <div class="clear-skin-alert" id="clear-skin-alert" hidden>
+        <div class="clear-skin-icon">✨</div>
+        <div class="clear-skin-text">
+          <strong>Normal Facial Skin — No Disease Detected</strong>
+          <span id="clear-skin-detail">This facial image shows normal, healthy skin. No skin conditions (Acne, Melasma, Rosacea, or Seborrheic Dermatitis) were detected.</span>
+        </div>
+      </div>
+
+      <!-- Other / Unknown Disease Alert Banner -->
+      <div class="other-disease-alert" id="other-disease-alert" hidden>
+        <div class="other-disease-icon">⚠️</div>
+        <div class="other-disease-text">
+          <strong>Unknown Facial Condition Detected</strong>
+          <span>This skin condition is outside the 4 supported categories (Acne, Melasma, Rosacea, or Seborrheic Dermatitis). Please consult a dermatologist for a proper clinical evaluation.</span>
+        </div>
+      </div>
+
+      <!-- Detected Conditions Cards Container -->
+      <div class="conditions-grid" id="conditions-grid">
+        <!-- Condition cards are rendered dynamically by JavaScript -->
+      </div>
+
+      <!-- Overall Skin Affected Area & Severity -->
+      <div class="card glass-card" id="result-affected-wrap">
+        <div class="affected-header-flex">
+          <div>
+            <span class="section-label">Overall Skin Area Affected</span>
+            <div class="affected-value-group">
+              <span class="affected-number" id="affected-number">—</span>
+              <span class="severity-pill" id="severity-pill">—</span>
             </div>
           </div>
         </div>
-
-        <!-- Confidence Bar -->
-        <div class="confidence-bar-wrap" aria-hidden="true">
-          <div class="confidence-bar-track">
-            <div class="confidence-bar-fill" id="confidence-bar-fill"></div>
-          </div>
+        <div class="affected-bar-track">
+          <div class="affected-bar-fill" id="affected-bar-fill"></div>
         </div>
+      </div>
 
-        <!-- Condition Description -->
-        <div class="result-description" id="result-description">
-          <h3 class="section-label">About This Condition</h3>
-          <p id="description-text" class="description-text"></p>
+      <!-- Probability Breakdown -->
+      <div class="card glass-card">
+        <h3 class="section-label">All Class Probabilities</h3>
+        <div id="proba-bars" class="proba-bars" aria-label="Probability breakdown"></div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer-box" role="note" aria-label="Medical disclaimer">
+        <div class="disclaimer-icon-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7V12C3 17.5 6.8 22.7 12 24C17.2 22.7 21 17.5 21 12V7L12 2Z" stroke="currentColor" stroke-width="2" fill="none"/><path d="M12 8V13M12 16V16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
         </div>
-
-        <!-- Symptoms -->
-        <div class="result-symptoms" id="result-symptoms">
-          <h3 class="section-label">Common Symptoms</h3>
-          <ul id="symptoms-list" class="symptoms-list" aria-label="Common symptoms"></ul>
-        </div>
-
-        <!-- Probability Breakdown -->
-        <div class="result-probabilities">
-          <h3 class="section-label">All Class Probabilities</h3>
-          <div id="proba-bars" class="proba-bars" aria-label="Probability breakdown"></div>
-        </div>
-
-        <!-- Disclaimer -->
-        <div class="disclaimer-box" role="note" aria-label="Medical disclaimer">
-          <span class="disclaimer-icon" aria-hidden="true">⚕</span>
+        <div>
+          <strong class="disclaimer-title">Not a Medical Diagnosis</strong>
           <p class="disclaimer-text" id="disclaimer-text"></p>
         </div>
-
-        <!-- Analyse another -->
-        <button class="btn-retry" id="btn-retry" aria-label="Analyse another image">
-          ← Analyse Another Image
-        </button>
       </div>
+
+      <!-- Analyse Another -->
+      <button class="btn-retry" id="btn-retry" aria-label="Analyse another image">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9A6 6 0 1 1 9 15H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 12V15H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Analyse Another Image
+      </button>
     </section>
 
-    <!-- Info Cards -->
+    <!-- How It Works Section -->
     <section class="info-section" aria-labelledby="info-heading">
       <h2 id="info-heading" class="section-heading">How It Works</h2>
       <div class="info-grid">
         <div class="info-card">
-          <div class="info-icon" aria-hidden="true">🖼</div>
-          <h3 class="info-title">Preprocessing</h3>
-          <p class="info-text">Images are resized to 128×128 and enhanced via CLAHE illumination normalisation + Gaussian denoising.</p>
+          <div class="info-icon-wrap"><span class="info-step">1</span></div>
+          <h3 class="info-title">Face Detection</h3>
+          <p class="info-text">YuNet deep-learning face detector validates that a prominent human face is present. Non-face images are rejected.</p>
         </div>
         <div class="info-card">
-          <div class="info-icon" aria-hidden="true">📐</div>
+          <div class="info-icon-wrap"><span class="info-step">2</span></div>
           <h3 class="info-title">Feature Extraction</h3>
-          <p class="info-text">58 handcrafted features extracted — 12 colour (RGB + HSV), 20 GLCM texture (4 angles), 26 LBP histogram bins.</p>
+          <p class="info-text">58 handcrafted features extracted — 12 colour (RGB + HSV), 20 GLCM texture, 26 LBP histogram bins.</p>
         </div>
         <div class="info-card">
-          <div class="info-icon" aria-hidden="true">🤖</div>
+          <div class="info-icon-wrap"><span class="info-step">3</span></div>
           <h3 class="info-title">ML Classification</h3>
-          <p class="info-text">7 traditional ML models trained (SVM, Random Forest, KNN, Decision Tree, Logistic Regression, Naive Bayes, XGBoost). Best model selected by 5-fold CV.</p>
-        </div>
-        <div class="info-card">
-          <div class="info-icon" aria-hidden="true">📊</div>
-          <h3 class="info-title">No Deep Learning</h3>
-          <p class="info-text">Built entirely with Scikit-learn and XGBoost. No CNN, no PyTorch, no TensorFlow — pure traditional ML for academic clarity.</p>
+          <p class="info-text">7 traditional ML models trained (SVM, RF, KNN, DT, LR, NB, XGBoost). Best model selected by 5-fold CV accuracy.</p>
         </div>
       </div>
     </section>
@@ -190,10 +273,10 @@
 
   <!-- Footer -->
   <footer class="footer" role="contentinfo">
-    <p>DermScan AI · MCA Academic Project · Not for Medical Use</p>
-    <p class="footer-sub">Built with Python · Scikit-learn · OpenCV · Flask</p>
+    <p>Skin Infection Detection · Academic Project · Not for Medical Use</p>
+    <p class="footer-sub">Built with Python · Scikit-learn · OpenCV · Flask · XGBoost</p>
   </footer>
 
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='script.js') }}?v=5.0"></script>
 </body>
 </html>

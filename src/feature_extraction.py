@@ -57,7 +57,6 @@ CLASS_FOLDERS = {
     "Acne":                  "Acne",
     "Rosacea":               "Rosacea",
     "Melasma":               "Melasma",
-    "Facial Vitiligo":       "Facial vitiligo",
     "Seborrheic Dermatitis": "Seborrheic_Dermatitis",
 }
 SUPPORTED_EXT = {".jpg", ".jpeg", ".png", ".bmp", ".tiff", ".tif"}

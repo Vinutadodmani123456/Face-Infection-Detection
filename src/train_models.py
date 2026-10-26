@@ -54,7 +54,8 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report, balanced_accuracy_score
+from sklearn.utils.class_weight import compute_sample_weight
 
 # XGBoost
 try:
@@ -204,6 +205,8 @@ def run_training() -> dict:
     print(f"  {'Model':<22} {'CV Acc (mean)':<16} {'CV Acc (std)':<14} {'Test Acc'}")
     print("  " + "-" * 66)
 
+    sample_weights = compute_sample_weight("balanced", y_train)
+
     best_name   = None
     best_cv_acc = -1.0
 
@@ -214,8 +217,11 @@ def run_training() -> dict:
         cv_mean = cv_scores.mean()
         cv_std  = cv_scores.std()
 
-        # Final train on full train set
-        clf.fit(X_train, y_train)
+        # Final train on full train set (use sample weights for XGBoost to balance classes)
+        if name == "XGBoost":
+            clf.fit(X_train, y_train, sample_weight=sample_weights)
+        else:
+            clf.fit(X_train, y_train)
 
         # Test accuracy
         y_pred     = clf.predict(X_test)
@@ -244,10 +250,19 @@ def run_training() -> dict:
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
 
     best_model = model_results[best_name]["model"]
-
     joblib.dump(best_model, MODELS_DIR / "best_model.pkl")
     joblib.dump(scaler,     MODELS_DIR / "scaler.pkl")
     joblib.dump(le,         MODELS_DIR / "label_encoder.pkl")
+
+    # Save SVM model specifically for DermScan prediction pipeline
+    if "SVM" in model_results:
+        joblib.dump(model_results["SVM"]["model"], MODELS_DIR / "svm_model.pkl")
+
+    # Fit and save NearestNeighbors on scaled training features for open-set rejection
+    from sklearn.neighbors import NearestNeighbors
+    dataset_nn = NearestNeighbors(n_neighbors=5, metric="euclidean")
+    dataset_nn.fit(X_train)
+    joblib.dump(dataset_nn, MODELS_DIR / "dataset_nn.pkl")
 
     # Save full results for evaluate_models.py
     results_payload = {
