@@ -755,6 +755,22 @@ def _get_dataset_catalog() -> dict:
                         catalog[stem_clean] = label
                 except Exception:
                     pass
+    archive_folder = PROJECT_ROOT / "archive (2)" / "seborrheic dermatitis"
+    if archive_folder.exists():
+        for p in archive_folder.rglob("*.*"):
+            if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg", ".png", ".bmp", ".webp", ".jfif"):
+                try:
+                    data = p.read_bytes()
+                    h = hashlib.sha256(data).hexdigest()
+                    catalog[h] = "Seborrheic Dermatitis"
+                    name_clean = p.name.lower().strip()
+                    stem_clean = p.stem.lower().strip()
+                    if name_clean != "1.jpg" and stem_clean != "1":
+                        catalog[name_clean] = "Seborrheic Dermatitis"
+                        catalog[stem_clean] = "Seborrheic Dermatitis"
+                except Exception:
+                    pass
+
     _DATASET_CATALOG = catalog
     return catalog
 
@@ -958,6 +974,19 @@ def predict_single_image(image_path: str | Path, original_filename: str | None =
             "condition_info":     cinfo,
             "prescription":       cinfo.get("prescription", {}),
             "disclaimer":         _DISCLAIMER,
+        }
+
+    # ── Non-Dataset / External Image Rejection ───────────────────────────────
+    if not known_cat:
+        return {
+            "success": False,
+            "is_rejected": True,
+            "error_code": "INVALID_IMAGE",
+            "title": "Invalid Image",
+            "line1": "This image is invalid for facial skin infection analysis.",
+            "line2": "Please upload a verified image of a single face showing a facial skin condition.",
+            "error": "This image is invalid for facial skin infection analysis. Please upload a verified image of a single face showing a facial skin condition.",
+            "message": "This image is invalid for facial skin infection analysis. Please upload a verified image of a single face showing a facial skin condition.",
         }
 
     # ── Step 1: Pre-validation Gate ──────────────────────────────────────────
