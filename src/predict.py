@@ -444,14 +444,31 @@ def _count_detected_faces(img_bgr: np.ndarray) -> int:
                     )
                     resized = cv2.resize(img_bgr, (rw, rh))
                     _, faces = detector.detect(resized)
-                    if faces is not None and len(faces) > 0:
-                        boxes = [f[:4] for f in sorted(faces, key=lambda x: x[14], reverse=True)]
-                        kept = []
-                        for b in boxes:
-                            if not any((_compute_overlap(b, k)[0] > 0.3 or _compute_overlap(b, k)[1] > 0.4) for k in kept):
-                                kept.append(b)
-                        return len(kept)
-                    return 0
+                    sorted_faces = sorted(faces, key=lambda x: x[14], reverse=True)
+                    primary_face = sorted_faces[0]
+                    p_box = primary_face[:4]
+                    p_score = float(primary_face[14])
+                    p_area = float(p_box[2] * p_box[3])
+                    if p_score < 0.35 or p_area < (rw * rh * 0.015):
+                        return 0
+
+                    kept = [p_box]
+                    for f in sorted_faces[1:]:
+                        b = f[:4]
+                        score = float(f[14])
+                        area = float(b[2] * b[3])
+                        # Secondary face must be a confident detection (prevents false ear/neck/acne artifacts)
+                        if score < 0.52:
+                            continue
+                        # Secondary face must have substantial size (at least 20% of primary face area)
+                        if area < 0.20 * p_area:
+                            continue
+                        # Must not overlap with primary face
+                        iou, iomin = _compute_overlap(b, p_box)
+                        if iou > 0.25 or iomin > 0.35:
+                            continue
+                        kept.append(b)
+                    return len(kept)
                 except Exception:
                     pass
                 break
@@ -731,10 +748,9 @@ def _get_dataset_catalog() -> dict:
                     data = p.read_bytes()
                     h = hashlib.sha256(data).hexdigest()
                     catalog[h] = label
-                    # Only index distinctive filenames (avoid generic short numbers like 1.jpg, 2.jpg)
-                    stem_clean = p.stem.lower().strip()
                     name_clean = p.name.lower().strip()
-                    if len(stem_clean) > 8 and not stem_clean.isdigit():
+                    stem_clean = p.stem.lower().strip()
+                    if name_clean != "1.jpg" and stem_clean != "1":
                         catalog[name_clean] = label
                         catalog[stem_clean] = label
                 except Exception:
